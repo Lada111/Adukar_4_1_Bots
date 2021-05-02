@@ -35,35 +35,33 @@ public class Bot extends TelegramLongPollingBot {
     @SneakyThrows
     public void sendAnswerFromBot(Update update){
         Long chatId = update.getMessage().getChatId();
-        switch (update.getMessage().getText()){
-            case Commands.START:{
-                userService.addUserToList(userService.createUserFromUpdate(update));
-                sendMsg(textService.getPropValues(Paths.HELLO_STRING_PATH, Text.SAY_HELLO_PROPERTY),chatId);
-                sendPhoto(textService.getPropValues(Paths.PHOTOS_URLS_PATH, Photos.HELLO_PHOTO_PATH), chatId);
-                break;
-            }
-            case Commands.COLORS: {
-                sendMsg(Color.RED.getCode(), chatId);
-                break;
-            }
-            case Commands.BUTTONS:{
-                sendMsgWithButtons("Сделайте выбор:", replyButtons.keyboardMarkupForSelectStudentOrTeacher(),chatId);
-                break;
-            }
-            case Commands.USERS:{
-                sendMsg(userService.getAllUsers(), chatId);
-                break;
-            }
-            case Commands.LOCATION:{
-                sendLocation(chatId);
-                break;
-            }
-            default:{
-                sendMsg("Write admin to get help @yqpuss", chatId);
-                sendContact(chatId);
-                break;
-            }
+        if(update.getMessage().getText().equals("/start")){
+            sendMsg("Hi! I am very good bot. I can: /location /joke and I am very like cats", chatId);
+            sendMsgWithButtons("внизу есть кнопки", replyButtons.keyboardMarkupForSelectStudentOrTeacher(), chatId);
+
         }
+        if(update.getMessage().getText().equals("/location")){
+            sendLocation(chatId);
+        }
+        if(update.getMessage().getText().equals("/joke")){
+            sendMsg("I don't know jokes yet, but I will improve :)", chatId);
+        }
+        if(update.getMessage().getText().equals("cat1")){
+            sendPhoto("https://мтв.онлайн/files/1/2019/30620-119720-30365-hsa705.shej.jpg", chatId);
+        }
+        if(update.getMessage().getText().equals("cat2")){
+            sendPhoto("https://cdn.ren.tv/cache/960x540/media/img/07/a8/07a827ebba12828c211675d79fe991c6756a3924.jpg", chatId);
+        }
+        if(update.getMessage().getText().equals("cat3")){
+            sendPhoto("https://telegraf.com.ua/files/2017/04/00000000000000000000000003.jpg", chatId);
+        }
+        if(update.getMessage().getText().equals("телефон")){
+            sendContact(chatId);
+        }
+        if(update.getMessage().getText().equals("помощь")){
+            sendMsg("ничем не могу помочь", chatId);
+        }
+
     }
 
     public synchronized void sendMsg(String message, Long chatId) {
@@ -79,9 +77,9 @@ public class Bot extends TelegramLongPollingBot {
 
     public synchronized void sendContact(Long chatId) {
         SendContact sendContact = new SendContact();
-        sendContact.setPhoneNumber("+375447357152");
-        sendContact.setFirstName("Anton");
-        sendContact.setLastName("Kupreichik");
+        sendContact.setPhoneNumber("+375336548560");
+        sendContact.setFirstName("Lada");
+        sendContact.setLastName("Kirienko");
         sendContact.setChatId(chatId);
         try {
             execute(sendContact);
@@ -105,8 +103,8 @@ public class Bot extends TelegramLongPollingBot {
     public synchronized void sendLocation(Long chatId){
         SendLocation sendLocation = new SendLocation();
         sendLocation.setChatId(chatId);
-        sendLocation.setLatitude(Float.valueOf("-33.830693"));
-        sendLocation.setLongitude(Float.valueOf("151.219"));
+        sendLocation.setLatitude(Float.valueOf("53.862942"));
+        sendLocation.setLongitude(Float.valueOf("27.430991"));
 
         try {
             execute(sendLocation);
@@ -141,11 +139,11 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "adukar4_1bot";
+        return "LadinMyBot";
     }
 
     @Override
     public String getBotToken() {
-        return "1741890763:AAEiZmqGQOPicqDbZrkDD_V26rRHI35Ik4k";
+        return "1750025939:AAFMZgFd5d2tk9xr6boZkVS-yiKWsnkKSlU";
     }
 }

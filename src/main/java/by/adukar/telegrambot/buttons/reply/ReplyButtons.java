@@ -16,18 +16,23 @@ public class ReplyButtons {
 
         ArrayList<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow keyboardFirstRow = new KeyboardRow();
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
 
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         keyboardMarkup.setSelective(true);
         keyboardMarkup.setResizeKeyboard(true);
         keyboardMarkup.setOneTimeKeyboard(false);
-        try {
-            keyboardFirstRow.add(textService.getPropValues(Paths.BUTTON_STRING_PATH, "reply.messageForButton.Student"));
-            keyboardFirstRow.add(textService.getPropValues(Paths.BUTTON_STRING_PATH, "reply.messageForButton.Teacher"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        keyboard.add(keyboardFirstRow);
+
+            keyboardFirstRow.add("телефон");
+            keyboardFirstRow.add("помощь");
+
+            keyboardSecondRow.add("cat1");
+            keyboardSecondRow.add("cat2");
+            keyboardSecondRow.add("cat3");
+
+            keyboard.add(keyboardFirstRow);
+            keyboard.add(keyboardSecondRow);
+
         keyboardMarkup.setKeyboard(keyboard);
         return keyboardMarkup;
 
