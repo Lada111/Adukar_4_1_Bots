@@ -37,4 +37,29 @@ public class ReplyButtons {
         return keyboardMarkup;
 
     }
+
+    public ReplyKeyboardMarkup keyboardMarkupForSelectTheme() {
+
+        ArrayList<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        keyboardMarkup.setSelective(true);
+        keyboardMarkup.setResizeKeyboard(true);
+        keyboardMarkup.setOneTimeKeyboard(false);
+
+        keyboardFirstRow.add("еда");
+        keyboardFirstRow.add("мебель");
+
+        keyboardSecondRow.add("одежда");
+        keyboardSecondRow.add("цвета");
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+
+        keyboardMarkup.setKeyboard(keyboard);
+        return keyboardMarkup;
+
+    }
 }
