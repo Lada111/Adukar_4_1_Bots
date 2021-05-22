@@ -2,8 +2,8 @@ package by.adukar.telegrambot.buttons.reply;
 
 import by.adukar.telegrambot.consts.Paths;
 import by.adukar.telegrambot.service.TextService;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.io.IOException;
 import java.util.ArrayList;
