@@ -12,7 +12,7 @@ public class ReplyButtons {
 
     TextService textService = new TextService();
 
-    public ReplyKeyboardMarkup keyboardMarkupForSelectStudentOrTeacher() {
+    /*public ReplyKeyboardMarkup keyboardMarkupForSelectStudentOrTeacher() {
 
         ArrayList<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow keyboardFirstRow = new KeyboardRow();
@@ -36,7 +36,7 @@ public class ReplyButtons {
         keyboardMarkup.setKeyboard(keyboard);
         return keyboardMarkup;
 
-    }
+    }*/
 
     public ReplyKeyboardMarkup keyboardMarkupForSelectTheme() {
 

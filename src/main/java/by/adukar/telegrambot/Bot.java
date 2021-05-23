@@ -55,6 +55,7 @@ public class Bot extends TelegramLongPollingBot {
             if (update.getCallbackQuery().getData().equals("французский")) {
                 sendMsgWithButtons("Ты выбрал французский язык. Теперь выбери тему:", inlineButtons.keyboardMarkup("еда", "мебель", "одежда", "цвета"), chatIdFromCallBack);
             }
+
             if (update.getCallbackQuery().getData().equals("еда")) {
                 sendMsg("Ты выбрал тему еда. Пример ввода: e_eng(fre)(ger)_ВашеСлово", chatIdFromCallBack);
             }
@@ -69,142 +70,154 @@ public class Bot extends TelegramLongPollingBot {
             }
 
 
-
-        }
-        else {
+        } else {
             Long chatId = update.getMessage().getChatId();
-            if(update.getMessage().getText().equals("Голосование")) {
+            if (update.getMessage().getText().equals("Голосование")) {
                 sendPoll(chatId);
-            }
-            if (update.getMessage().getText().equals("/start")) {
-                sendMsg("Привет! Я бот - учитель языков. Я еще умею /location и /телефон создателя, /joke /cat1 /cat2 /cat3", chatId);
-                sendDise(chatId);
-                //sendMsgWithButtons("внизу есть кнопки", replyButtons.keyboardMarkupForSelectStudentOrTeacher(), chatId);
-                sendMsgWithButtons("выбери язык, который хочешь учить:", inlineButtons.keyboardMarkup("английский", "немецкий", "французский"), chatId);
-            }
+            } else {
+                if (update.getMessage().getText().equals("Проверка знаний")) {
+                    sendPoll1(chatId);
+                    sendPoll2(chatId);
+                    sendPoll3(chatId);
+                } else {
+                    if (update.getMessage().getText().equals("Еще")) {
+                        sendPoll4(chatId);
+                        sendPoll5(chatId);
+                        sendPoll6(chatId);
+                    }
+                }
 
-            if (update.getMessage().getText().startsWith("e_eng")) {
-                String word = update.getMessage().getText().substring(6);
-                if (Dictionary.dictionaryEnglishEat.containsKey(word)) {
-                    sendMsg("Перевод найден(англиский) - " + Dictionary.dictionaryEnglishEat.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().equals("/start")) {
+                    sendMsg("Привет! Я бот - учитель языков. Я еще умею /location и /телефон создателя, /joke /милаякартинка1 /милаякартинка2 /милаякартинка3", chatId);
+                    //sendMsgWithButtons("внизу есть кнопки", replyButtons.keyboardMarkupForSelectStudentOrTeacher(), chatId);
+                    sendMsgWithButtons("выбери язык, который хочешь учить:", inlineButtons.keyboardMarkup("английский", "немецкий", "французский"), chatId);
                 }
-            }
-            if (update.getMessage().getText().startsWith("e_fre")) {
-                String word = update.getMessage().getText().substring(6);
-                if (Dictionary.dictionaryFrenchEat.containsKey(word)) {
-                    sendMsg("Перевод найден(французкий) - " + Dictionary.dictionaryFrenchEat.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().equals("Брось кубик")) {
+                    sendDise(chatId);
                 }
-            }
-            if (update.getMessage().getText().startsWith("e_ger")) {
-                String word = update.getMessage().getText().substring(6);
-                if (Dictionary.dictionaryGermanEat.containsKey(word)) {
-                    sendMsg("Перевод найден(немецкий) - " + Dictionary.dictionaryGermanEat.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("e_eng")) {
+                    String word = update.getMessage().getText().substring(6);
+                    if (Dictionary.dictionaryEnglishEat.containsKey(word)) {
+                        sendMsg("Перевод найден(англиский) - " + Dictionary.dictionaryEnglishEat.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
+                if (update.getMessage().getText().startsWith("e_fre")) {
+                    String word = update.getMessage().getText().substring(6);
+                    if (Dictionary.dictionaryFrenchEat.containsKey(word)) {
+                        sendMsg("Перевод найден(французкий) - " + Dictionary.dictionaryFrenchEat.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
+                }
+                if (update.getMessage().getText().startsWith("e_ger")) {
+                    String word = update.getMessage().getText().substring(6);
+                    if (Dictionary.dictionaryGermanEat.containsKey(word)) {
+                        sendMsg("Перевод найден(немецкий) - " + Dictionary.dictionaryGermanEat.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
+                }
 
-            if (update.getMessage().getText().startsWith("m_eng")) {
-                String word = update.getMessage().getText().substring(6);
-                if (Dictionary.dictionaryEnglishFurniture.containsKey(word)) {
-                    sendMsg("Перевод найден(англиский) - " + Dictionary.dictionaryEnglishFurniture.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("m_eng")) {
+                    String word = update.getMessage().getText().substring(6);
+                    if (Dictionary.dictionaryEnglishFurniture.containsKey(word)) {
+                        sendMsg("Перевод найден(англиский) - " + Dictionary.dictionaryEnglishFurniture.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
-            if (update.getMessage().getText().startsWith("m_fre")) {
-                String word = update.getMessage().getText().substring(6);
-                if (Dictionary.dictionaryFrenchFurniture.containsKey(word)) {
-                    sendMsg("Перевод найден(французкий) - " + Dictionary.dictionaryFrenchFurniture.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("m_fre")) {
+                    String word = update.getMessage().getText().substring(6);
+                    if (Dictionary.dictionaryFrenchFurniture.containsKey(word)) {
+                        sendMsg("Перевод найден(французкий) - " + Dictionary.dictionaryFrenchFurniture.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
-            if (update.getMessage().getText().startsWith("m_ger")) {
-                String word = update.getMessage().getText().substring(6);
-                if (Dictionary.dictionaryGermanFurniture.containsKey(word)) {
-                    sendMsg("Перевод найден(немецкий) - " + Dictionary.dictionaryGermanFurniture.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("m_ger")) {
+                    String word = update.getMessage().getText().substring(6);
+                    if (Dictionary.dictionaryGermanFurniture.containsKey(word)) {
+                        sendMsg("Перевод найден(немецкий) - " + Dictionary.dictionaryGermanFurniture.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
 
-            if (update.getMessage().getText().startsWith("cl_eng")) {
-                String word = update.getMessage().getText().substring(7);
-                if (Dictionary.dictionaryEnglishСlothing.containsKey(word)) {
-                    sendMsg("Перевод найден(англиский) - " + Dictionary.dictionaryEnglishСlothing.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("cl_eng")) {
+                    String word = update.getMessage().getText().substring(7);
+                    if (Dictionary.dictionaryEnglishСlothing.containsKey(word)) {
+                        sendMsg("Перевод найден(англиский) - " + Dictionary.dictionaryEnglishСlothing.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
-            if (update.getMessage().getText().startsWith("cl_fre")) {
-                String word = update.getMessage().getText().substring(7);
-                if (Dictionary.dictionaryFrenchСlothing.containsKey(word)) {
-                    sendMsg("Перевод найден(французкий) - " + Dictionary.dictionaryFrenchСlothing.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("cl_fre")) {
+                    String word = update.getMessage().getText().substring(7);
+                    if (Dictionary.dictionaryFrenchСlothing.containsKey(word)) {
+                        sendMsg("Перевод найден(французкий) - " + Dictionary.dictionaryFrenchСlothing.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
-            if (update.getMessage().getText().startsWith("cl_ger")) {
-                String word = update.getMessage().getText().substring(7);
-                if (Dictionary.dictionaryGermanСlothing.containsKey(word)) {
-                    sendMsg("Перевод найден(немецкий) - " + Dictionary.dictionaryGermanСlothing.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("cl_ger")) {
+                    String word = update.getMessage().getText().substring(7);
+                    if (Dictionary.dictionaryGermanСlothing.containsKey(word)) {
+                        sendMsg("Перевод найден(немецкий) - " + Dictionary.dictionaryGermanСlothing.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
 
-            if (update.getMessage().getText().startsWith("co_eng")) {
-                String word = update.getMessage().getText().substring(7);
-                if (Dictionary.dictionaryEnglishColors.containsKey(word)) {
-                    sendMsg("Перевод найден(англиский) - " + Dictionary.dictionaryEnglishColors.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("co_eng")) {
+                    String word = update.getMessage().getText().substring(7);
+                    if (Dictionary.dictionaryEnglishColors.containsKey(word)) {
+                        sendMsg("Перевод найден(англиский) - " + Dictionary.dictionaryEnglishColors.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
-            if (update.getMessage().getText().startsWith("co_fre")) {
-                String word = update.getMessage().getText().substring(7);
-                if (Dictionary.dictionaryFrenchColors.containsKey(word)) {
-                    sendMsg("Перевод найден(французкий) - " + Dictionary.dictionaryFrenchColors.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("co_fre")) {
+                    String word = update.getMessage().getText().substring(7);
+                    if (Dictionary.dictionaryFrenchColors.containsKey(word)) {
+                        sendMsg("Перевод найден(французкий) - " + Dictionary.dictionaryFrenchColors.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
-            if (update.getMessage().getText().startsWith("co_ger")) {
-                String word = update.getMessage().getText().substring(7);
-                if (Dictionary.dictionaryGermanColors.containsKey(word)) {
-                    sendMsg("Перевод найден(немецкий) - " + Dictionary.dictionaryGermanColors.get(word), chatId);
-                } else {
-                    sendMsg("Перевод не найден", chatId);
+                if (update.getMessage().getText().startsWith("co_ger")) {
+                    String word = update.getMessage().getText().substring(7);
+                    if (Dictionary.dictionaryGermanColors.containsKey(word)) {
+                        sendMsg("Перевод найден(немецкий) - " + Dictionary.dictionaryGermanColors.get(word), chatId);
+                    } else {
+                        sendMsg("Перевод не найден", chatId);
+                    }
                 }
-            }
 
 
-        if(update.getMessage().getText().equals("/location")){
-            sendLocation(chatId);
-        }
-        if(update.getMessage().getText().equals("/joke")){
-            sendMsg("I don't know jokes yet, but I will improve :)", chatId);
-        }
-        if(update.getMessage().getText().equals("/cat1")){
-            sendPhoto("https://мтв.онлайн/files/1/2019/30620-119720-30365-hsa705.shej.jpg", chatId);
-        }
-        if(update.getMessage().getText().equals("/cat2")){
-            sendPhoto("https://cdn.ren.tv/cache/960x540/media/img/07/a8/07a827ebba12828c211675d79fe991c6756a3924.jpg", chatId);
-        }
-        if(update.getMessage().getText().equals("/cat3")){
-            sendPhoto("https://telegraf.com.ua/files/2017/04/00000000000000000000000003.jpg", chatId);
-        }
-        if(update.getMessage().getText().equals("/телефон")){
-            sendContact(chatId);
-        }
-        if(update.getMessage().getText().equals("/помощь")){
-            sendMsg("ничем не могу помочь", chatId);
-        }
+                if (update.getMessage().getText().equals("/location")) {
+                    sendLocation(chatId);
+                }
+                if (update.getMessage().getText().equals("/joke")) {
+                    sendMsg("I don't know jokes yet, but I will improve :)", chatId);
+                }
+                if (update.getMessage().getText().equals("/милаякартинка1")) {
+                    sendPhoto("https://мтв.онлайн/files/1/2019/30620-119720-30365-hsa705.shej.jpg", chatId);
+                }
+                if (update.getMessage().getText().equals("/милаякартинка2")) {
+                    sendPhoto("https://cdn.ren.tv/cache/960x540/media/img/07/a8/07a827ebba12828c211675d79fe991c6756a3924.jpg", chatId);
+                }
+                if (update.getMessage().getText().equals("/милаякартинка3")) {
+                    sendPhoto("https://telegraf.com.ua/files/2017/04/00000000000000000000000003.jpg", chatId);
+                }
+                if (update.getMessage().getText().equals("/телефон")) {
+                    sendContact(chatId);
+                }
+                if (update.getMessage().getText().equals("/помощь")) {
+                    sendMsg("ничем не могу помочь", chatId);
+                }
+            }
         }
     }
 
@@ -219,6 +232,12 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
+    /*private void sendSticker(Long chatId){
+        SendSticker sendSticker = new SendSticker();
+        sendSticker.setSticker(stickerId);
+        return sendSticker;
+    }*/
+
     @SneakyThrows
     public synchronized void sendPoll(Long chatId) {
         SendPoll sendPoll = new SendPoll();
@@ -232,6 +251,85 @@ public class Bot extends TelegramLongPollingBot {
         execute(sendPoll);
     }
 
+    @SneakyThrows
+    public synchronized void sendPoll1(Long chatId) {
+        SendPoll sendPoll = new SendPoll();
+        sendPoll.enableNotification();
+        sendPoll.setQuestion("красный по английски...");
+        sendPoll.setAnonymous(true);
+        sendPoll.setOptions(List.of("Schrank", "Blau", "red"));
+        sendPoll.setChatId(chatId);
+        sendPoll.setType("quiz");
+        sendPoll.setCorrectOptionId(2);
+        execute(sendPoll);
+    }
+
+    @SneakyThrows
+    public synchronized void sendPoll2(Long chatId) {
+        SendPoll sendPoll = new SendPoll();
+        sendPoll.enableNotification();
+        sendPoll.setQuestion("конфета по немецки...");
+        sendPoll.setAnonymous(true);
+        sendPoll.setOptions(List.of("veste", "Des bonbons", "Süßigkeiten"));
+        sendPoll.setChatId(chatId);
+        sendPoll.setType("quiz");
+        sendPoll.setCorrectOptionId(2);
+        execute(sendPoll);
+    }
+
+    @SneakyThrows
+    public synchronized void sendPoll3(Long chatId) {
+        SendPoll sendPoll = new SendPoll();
+        sendPoll.enableNotification();
+        sendPoll.setQuestion("носки по французски...");
+        sendPoll.setAnonymous(true);
+        sendPoll.setOptions(List.of("Gelb", "Apfel", "chaussettes"));
+        sendPoll.setChatId(chatId);
+        sendPoll.setType("quiz");
+        sendPoll.setCorrectOptionId(2);
+        execute(sendPoll);
+    }
+
+    @SneakyThrows
+    public synchronized void sendPoll4(Long chatId) {
+        SendPoll sendPoll = new SendPoll();
+        sendPoll.enableNotification();
+        sendPoll.setQuestion("яблоко по английски...");
+        sendPoll.setAnonymous(true);
+        sendPoll.setOptions(List.of("Gelb", "Apfel", "аpple"));
+        sendPoll.setChatId(chatId);
+        sendPoll.setType("quiz");
+        sendPoll.setCorrectOptionId(2);
+        execute(sendPoll);
+    }
+
+    @SneakyThrows
+    public synchronized void sendPoll5(Long chatId) {
+        SendPoll sendPoll = new SendPoll();
+        sendPoll.enableNotification();
+        sendPoll.setQuestion("куртка по немецки...");
+        sendPoll.setAnonymous(true);
+        sendPoll.setOptions(List.of("yellow", "Apfel", "Jacke"));
+        sendPoll.setChatId(chatId);
+        sendPoll.setType("quiz");
+        sendPoll.setCorrectOptionId(2);
+        execute(sendPoll);
+    }
+
+    @SneakyThrows
+    public synchronized void sendPoll6(Long chatId) {
+        SendPoll sendPoll = new SendPoll();
+        sendPoll.enableNotification();
+        sendPoll.setQuestion("шкаф по французски...");
+        sendPoll.setAnonymous(true);
+        sendPoll.setOptions(List.of("Tisch", "Socken", "armoire"));
+        sendPoll.setChatId(chatId);
+        sendPoll.setType("quiz");
+        sendPoll.setCorrectOptionId(2);
+        execute(sendPoll);
+    }
+
+
 
 
     @SneakyThrows
@@ -243,7 +341,7 @@ public class Bot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-    }
+    }     //кубик
 
 
     public synchronized void sendMsg(String message, Long chatId) {
@@ -291,7 +389,7 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-    public synchronized void sendMsgWithButtons(String message, ReplyKeyboardMarkup replyKeyboardMarkup, Long chatId) {
+    /*public synchronized void sendMsgWithButtons(String message, ReplyKeyboardMarkup replyKeyboardMarkup, Long chatId) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
         sendMessage.setText(message);
@@ -301,7 +399,7 @@ public class Bot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             System.out.println("Exception: " + e.toString());
         }
-    }
+    }*/
 
     public synchronized void sendMsgWithButtons(String message, InlineKeyboardMarkup replyKeyboardMarkup, Long chatId) {
         SendMessage sendMessage = new SendMessage();
